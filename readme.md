@@ -2,7 +2,7 @@
 
 JPEG Most Prevalent Colors Counter Package and Command Line Tool.
 
-[![GoDoc](https://godoc.org/github.com/regorov/jpegcc?status.svg)](https://godoc.org/github.com/regorov/jpegcc)[![Build Status](https://travis-ci.org/regorov/jpegcc.svg?branch=master)](https://travis-ci.org/regorov/jpegcc)
+[![GoDoc](https://godoc.org/github.com/regorov/jpegcc?status.svg)](https://godoc.org/github.com/regorov/jpegcc)[![Build Status](https://travis-ci.org/regorov/jpegcc.svg?branch=master)](https://travis-ci.org/regorov/jpegcc)[![Coverage Status](https://coveralls.io/repos/github/regorov/jpegcc/badge.svg)](https://coveralls.io/github/regorov/jpegcc)
 
 ## Requirements
 
