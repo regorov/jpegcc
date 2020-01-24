@@ -21,7 +21,6 @@ const (
 	assetPath    = "./assets"
 	fileListener = "127.0.0.1:8091"
 	baseURL      = "http://" + fileListener
-	zerologLevel = zerolog.DebugLevel
 )
 
 var files = map[string]struct {
@@ -39,7 +38,6 @@ var files = map[string]struct {
 }
 
 func init() {
-	zerolog.SetGlobalLevel(zerologLevel)
 
 	go func() {
 		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -173,6 +171,8 @@ func newInputMock() jpegcc.Inputer {
 		for fname := range files {
 			mock.line <- baseURL + "/" + fname
 		}
+		// adds to the input channel invalid URL. This URL should not be processed by
+		// downloader.
 		mock.line <- "http://127.0.0/wrong.url.jpeg"
 		close(mock.line)
 	}()
@@ -259,7 +259,7 @@ func TestProcessor_CounterPix(t *testing.T) {
 	}
 }
 
-func TestProcessor_CounterDefault(t *testing.T) {
+func count(t *testing.T, counter jpegcc.Counter) {
 
 	// TODO: ensure that ListenAndServe starts before down.Next() call.
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
@@ -277,7 +277,6 @@ func TestProcessor_CounterDefault(t *testing.T) {
 		t.Fatalf("open file failed: %s", err.Error())
 	}
 
-	counter := jpegcc.NewCounterDefault()
 	imgproc := jpegcc.NewImageProcessor(zerolog.New(os.Stdout), down, out, counter)
 	imgproc.Start(context.Background(), 1)
 
@@ -290,4 +289,11 @@ func TestProcessor_CounterDefault(t *testing.T) {
 			t.Fatalf("delete ./result.test failed: %s", err.Error())
 		}
 	}
+}
+func TestCounterDfault(t *testing.T) {
+	count(t, jpegcc.NewCounterDefault())
+}
+
+func TestCounterPix(t *testing.T) {
+	count(t, jpegcc.NewCounterPix())
 }
