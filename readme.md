@@ -1,8 +1,6 @@
-# jpegcc
+# jpegcc [![GoDoc](https://godoc.org/github.com/regorov/jpegcc?status.svg)](https://godoc.org/github.com/regorov/jpegcc) [![Build Status](https://travis-ci.org/regorov/jpegcc.svg?branch=master)](https://travis-ci.org/regorov/jpegcc) [![Coverage Status](https://coveralls.io/repos/github/regorov/jpegcc/badge.svg)](https://coveralls.io/github/regorov/jpegcc) [![Go Report Card](https://goreportcard.com/badge/github.com/regorov/jpegcc)](https://goreportcard.com/report/github.com/regorov/jpegcc)
 
 JPEG Most Prevalent Colors Counter Package and Command Line Tool.
-
-[![GoDoc](https://godoc.org/github.com/regorov/jpegcc?status.svg)](https://godoc.org/github.com/regorov/jpegcc)[![Build Status](https://travis-ci.org/regorov/jpegcc.svg?branch=master)](https://travis-ci.org/regorov/jpegcc)[![Coverage Status](https://coveralls.io/repos/github/regorov/jpegcc/badge.svg)](https://coveralls.io/github/regorov/jpegcc)
 
 ## Requirements
 
@@ -144,6 +142,6 @@ type Imager interface {
 
 - Create RAM disk
 - Use RAM disk as shared storage
-- Split current jpegcc application to images downloader daemon and images processing. Because downloader part of application does not consumes memory and does not generate garbage.
+- Split current jpegcc application to images downloader daemon and images processing apps (similar to FaSS). Because downloader part of application does not consumes memory and does not generate garbage it can stay as daemon.
 
 Prague 2020
