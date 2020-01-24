@@ -2,10 +2,7 @@
 
 JPEG Most Prevalent Colors Counter Package and Command Line Tool.
 
-[![GoDoc](https://godoc.org/github.com/regorov/jpegcc?status.svg)](https://godoc.org/github.com/regorov/jpegcc)
-![Coverage Status](https://coveralls.io/repos/regorov/jpegcc/badge.svg?branch=master&service=github)](https://coveralls.io/github/regorov/jpegcc?branch=master)
-
-[![Build Status](https://travis-ci.org/regorov/jpegcc.svg?branch=master)](https://travis-ci.org/regorov/jpegcc) 
+[![GoDoc](https://godoc.org/github.com/regorov/jpegcc?status.svg)](https://godoc.org/github.com/regorov/jpegcc)[![Build Status](https://travis-ci.org/regorov/jpegcc.svg?branch=master)](https://travis-ci.org/regorov/jpegcc)
 
 ## Requirements
 
@@ -36,11 +33,11 @@ Input >>[Reading from input file] >> [1] ->>Nx[Image Down-loaders]>>[1]>>Mx[Imag
 
 [1] - channel length
 
-M, N - simultaneous goroutines. 
+M, N - simultaneous goroutines.
 
 - Reading from file uses Scanner, what has buffer reading inside.
-- N down-loaders must be launched. Down-loader is based on fasthttp library, what has HTTP requests limitation per host, reading pools for HTTP Body and zero allocations. Idea of having several parallel downloading processes is to have something in the channel with downloaded images listened by processing. Because performance of a single image download is not guaranteed.   
-- The most loading part of CPU is Processing part. Taking into account 1 CPU, there is no sense to have more than one simultaneous processing goroutine. Two processes will be competing for CPU cache and reduce overall performance. But, there is a command line option allowing M>1 processing goroutines. 
+- N down-loaders must be launched. Down-loader is based on fasthttp library, what has HTTP requests limitation per host, reading pools for HTTP Body and zero allocations. Idea of having several parallel downloading processes is to have something in the channel with downloaded images listened by processing. Because performance of a single image download is not guaranteed.
+- The most loading part of CPU is Processing part. Taking into account 1 CPU, there is no sense to have more than one simultaneous processing goroutine. Two processes will be competing for CPU cache and reduce overall performance. But, there is a command line option allowing M>1 processing goroutines.
 - Buffered result writer does not block (file i/o) Image processing goroutine per each single result.
 
 #### Installation
@@ -53,7 +50,7 @@ go build
 
 #### Usage
 
-``` bash
+```bash
 jpegcc help
 jpegcc help start
 export GOMAXPROCS=1
@@ -70,7 +67,7 @@ curl -sK -v http://127.0.0.1:6001/debug/pprof/profile > cpu.out
 go tool pprof -http=":8086" ./heap.out
 ```
 
-* Go runtime does not return memory back to OS as fast as possible.
+- Go runtime does not return memory back to OS as fast as possible.
 
 #### Build You Own Image Processing Tool
 
@@ -143,12 +140,10 @@ type Imager interface {
 
 ```
 
+## Further research
 
+- Create RAM disk
+- Use RAM disk as shared storage
+- Split current jpegcc application to images downloader daemon and images processing. Because downloader part of application does not consumes memory and does not generate garbage.
 
-## Further research 
-
-* Create RAM disk
-* Use RAM disk as shared storage
-* Split current jpegcc application to images downloader daemon and images processing. Because downloader part of application does not consumes memory and does not generate garbage.   
-
-Prague 2020 
+Prague 2020
