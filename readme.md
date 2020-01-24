@@ -72,8 +72,6 @@ go tool pprof -http=":8086" ./heap.out
 
 * Go runtime does not return memory back to OS as fast as possible.
 
-  
-
 #### Build You Own Image Processing Tool
 
 There are several interfaces what can be implemented to change input source, download approach, image processing logic and output direction.
@@ -133,7 +131,7 @@ type Downloader interface {
 //
 // Bytes returns downloaded image as []byte.
 //
-// Reset releases []byte of HTRTP Body. Do not call Bytes() afte
+// Reset releases []byte of HTTP Body. Do not call Bytes() after
 // calling Reset.
 //
 // URL returns the URL of downloaded image.
@@ -151,5 +149,6 @@ type Imager interface {
 
 * Create RAM disk
 * Use RAM disk as shared storage
-* Split a single application 
+* Split current jpegcc application to images downloader daemon and images processing. Because downloader part of application does not consumes memory and does not generate garbage.   
 
+Prague 2020 
